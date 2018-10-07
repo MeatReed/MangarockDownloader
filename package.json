@@ -1,0 +1,16 @@
+{
+  "name": "mangarock-downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MinusGix",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.18.0",
+    "node-fetch": "^2.2.0",
+    "sanitize-filename": "^1.6.1"
+  }
+}
