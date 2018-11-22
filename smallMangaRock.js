@@ -2,16 +2,18 @@ const fetch = require('node-fetch');
 const fs = require('fs');
 const sanitize = require('sanitize-filename');
 
+let queryVersion = 401;
+
 async function getData (id, country="United States") {
 	country = encodeURIComponent(country);
-	let res = await fetch(`https://api.mangarockhd.com/query/web400/info?oid=mrs-serie-${id}&last=0&country=${country}`);
+	let res = await fetch(`https://api.mangarockhd.com/query/web${queryVersion}/info?oid=mrs-serie-${id}&last=0&country=${country}`);
 
 	return (await res.json()).data;
 }
 
 async function getChapterData (oid, country="United States") {
 	country = encodeURIComponent(country);
-	let res = await fetch(`https://api.mangarockhd.com/query/web400/pages?oid=${oid}&country=${country}`);
+	let res = await fetch(`https://api.mangarockhd.com/query/web${queryVersion}/pages?oid=${oid}&country=${country}`);
 
 	return (await res.json()).data; // arr
 }
