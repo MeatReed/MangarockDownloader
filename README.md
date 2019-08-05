@@ -1,4 +1,5 @@
 # Mangarock Downloader
+NOTE: THIS CODE NO LONGER WORKS! Mangarock changed their api and I currently don't have the inclination to figure out their new (and more complicated) method. I suggest looking at another manga site (mangadex is a nice choice) for the manga you want, and then using one of the several existing mangadex downloaders.
 
 Downloads manga from https://mangarock.com
 
