@@ -16,4 +16,7 @@ You grab the "mrs-serie-5555555" and then in the terminal, run
 or
 `node downloader.js mrs-serie-5555555`
 
+You can download all Mangarock's manga's, run
+`node downloaderAll.js`
+
 It will be downloaded to the output folder.
