@@ -107,7 +107,9 @@ function downloadManga(id) {
       }
 
       console.log('\tDone download all chapiters ' + sanitize(data.name))
-		})
+		}).catch(err => {
+      return
+    })
 }
 
 async function downloadChapter(chapter, outDir) {

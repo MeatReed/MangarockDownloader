@@ -21,4 +21,5 @@ axios
       await Manga.downloadManga(oidsResponse.data.data[i])
       console.log(`\tDone oid: ${oidsResponse.data.data[i]}`)
     }
+    console.log('Done !!')
   })
