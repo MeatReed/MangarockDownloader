@@ -9,8 +9,6 @@ usage: (requires nodejs)
 npm install
 ```
 
-Create a folder in the directory named 'output', otherwise it will fail.
-
 Find the link you want, such as: https://mangarock.com/manga/mrs-serie-5555555/chapter/mrs-chapter-9999999 (Just an example url)
 You grab the "mrs-serie-5555555" and then in the terminal, run
 

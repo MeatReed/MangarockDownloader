@@ -1,3 +1,4 @@
+const fs = require('fs');
 const Manga = require('./smallMangaRock');
 
 let id = process.argv[2];
@@ -7,6 +8,10 @@ if (!id.startsWith('mrs-serie-')) { // assume it's only numbers
 }
 
 console.log("Story id:", id);
+
+if (!fs.existsSync('output')) {
+	fs.mkdirSync('output')
+}
 
 Manga.downloadManga(id);
 
