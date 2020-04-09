@@ -1,21 +1,24 @@
 const fetch = require('node-fetch');
+const axios = require('axios')
 const fs = require('fs');
 const sanitize = require('sanitize-filename');
+const XXH  = require('xxhashjs');
 
-let queryVersion = 401;
-
-async function getData (id, country="United States") {
+async function getData (id, country="France") {
 	country = encodeURIComponent(country);
-	let res = await fetch(`https://api.mangarockhd.com/query/web${queryVersion}/info?oid=mrs-serie-${id}&last=0&country=${country}`);
-
-	return (await res.json()).data;
+	let res = await axios.get(`https://web.mangarockhd.com/query/web450/info?oid=${id}&last=0&country=${country}`);
+	return res.data.data
 }
 
-async function getChapterData (oid, country="United States") {
-	country = encodeURIComponent(country);
-	let res = await fetch(`https://api.mangarockhd.com/query/web${queryVersion}/pages?oid=${oid}&country=${country}`);
-
-	return (await res.json()).data; // arr
+async function getChapterData (oid) {
+	let url = `https://api.mangarockhd.com/query/android402/pagesv2?oid=${oid}`
+	let res = await axios.get(`http://api.mangarockhd.com/query/android402/pagesv2?oid=${oid}`, {
+		headers: {
+			qtoken: '4'+XXH.h64(`${url}:425bd0ffd40bfaefbd184ea34e85d5042c8e74716f6e9f770cefbadba395782b`,0).toString(16)
+		}
+	})
+	return res.data.data
+	//return (await res.json()).data.data; // arr
 }
 
 function decodeMRI (mriBuf) {
@@ -70,15 +73,6 @@ function downloadManga (id) {
 				await downloadChapter(data.chapters[i], outDir);
 				console.log("\tDone with chapter #" + i + " '" + data.chapters[i].name + "' " + i + "/" + data.chapters.length);
 			}
-			/*
-			let prev = new Promise(resolve => resolve());
-			data.chapters.forEach((chapter, index) => {
-				prev.then(() => downloadChapter(chapter, outDir))
-				.then(() => {
-					done++;
-					console.log("\tDone with chapter #" + index + "'" + chapter.name + "' " + done + "/" + data.chapters.length);
-				})
-			});*/
 		})
 }
 
@@ -104,7 +98,7 @@ function downloadChapter (chapter, outDir) {
 			let promises = [];
 			
 			for (let i = 0; i < data.length; i++) {
-				promises.push(downloadPage(data[i], outDirComplete + sanitize((i + 1) + '.webp')));
+				promises.push(downloadPage(data[i].url, outDirComplete + sanitize((i + 1) + '.webp')));
 			}
 
 			return Promise.all(promises);

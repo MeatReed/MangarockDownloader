@@ -9,8 +9,10 @@
   "author": "MinusGix",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "commander": "^2.18.0",
     "node-fetch": "^2.2.0",
-    "sanitize-filename": "^1.6.1"
+    "sanitize-filename": "^1.6.1",
+    "xxhashjs": "^0.2.2"
   }
 }
