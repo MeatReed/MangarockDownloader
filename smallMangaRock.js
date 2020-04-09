@@ -146,8 +146,8 @@ async function downloadChapter(chapter, outDir) {
 			return Promise.all(promises)
 		})
 		.catch(err => {
-      console.log("Sorry, we encountered an error, exiting:", err)
-			process.exit(1)
+      console.log("No access to chapters")
+			return
 		})
 }
 
@@ -182,8 +182,8 @@ function downloadThumbnail(url, outputDir) {
       console.log("\t\tWrote ", outputDir)
 		})
 		.catch(err => {
-			console.log("Sorry, we encountered an error, exiting:", err)
-			process.exit(1)
+			console.log("No access to thumbnail")
+			return
 		})
 }
 
@@ -196,8 +196,8 @@ function downloadCover(url, outputDir) {
       console.log("\t\tWrote ", outputDir)
 		})
 		.catch(err => {
-			console.log("Sorry, we encountered an error, exiting:", err)
-			process.exit(1)
+			console.log("No access to cover")
+			return
 		})
 }
 
@@ -210,8 +210,8 @@ function downloadArtWorks(url, outputDir, number) {
       console.log("\t\tWrote ", outputDir)
 		})
 		.catch(err => {
-			console.log("Sorry, we encountered an error, exiting:", err)
-			process.exit(1)
+			console.log("No access to artWorks")
+			return
 		})
 }
 
