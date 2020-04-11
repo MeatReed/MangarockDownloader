@@ -135,8 +135,7 @@ async function downloadChapter(chapter, outDir) {
 			})
 		})
 		.then(async data => {
-			fs.readdir(outDir + '/Chapiters/' + sanitize(chapter.name), function(error, files) { 
-				console.log(data.length, files.length) 
+			fs.readdir(outDir + '/Chapiters/' + sanitize(chapter.name), function(error, files) {
 				if (files.length === data.length) return
 			})
 
