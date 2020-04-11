@@ -17,7 +17,7 @@ axios
     }
   )
   .then(async (oidsResponse) => {
-    for (let i = 0; i < oidsResponse.data.data.slice(oidsResponse.data.data.length / 2, oidsResponse.data.data.length).length; i++) {
+    for (let i = 0; i < oidsResponse.data.data.slice((oidsResponse.data.data.length / 2) + 1, oidsResponse.data.data.length).length; i++) {
       await Manga.downloadManga(oidsResponse.data.data[i])
       console.log(`\tDone oid: ${oidsResponse.data.data[i]}`)
     }
