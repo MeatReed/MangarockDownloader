@@ -116,7 +116,7 @@ async function downloadChapter(chapter, outDir) {
 	return await getChapterData(chapter.oid)
 		.then(data => {
 			console.log("\tStarting chapter '" + chapter.name + "'")
-			return new Promise((resolve, reject) => {
+			return new Promise(async (resolve, reject) => {
         if (!fs.existsSync(outDir + '/Chapiters/' + sanitize(chapter.name))) {
           fs.mkdir(outDir + '/Chapiters/' + sanitize(chapter.name), err => {
             if (err) {
@@ -135,11 +135,17 @@ async function downloadChapter(chapter, outDir) {
 			})
 		})
 		.then(async data => {
+			fs.readdir(outDir + '/Chapiters/' + sanitize(chapter.name), function(error, files) { 
+				console.log(data.length, files.length) 
+				if (files.length === data.length) return
+			})
+
 			const outDirComplete = outDir + '/Chapiters/' + sanitize(chapter.name) + '/'
 
 			let promises = []
 			
 			for (let i = 0; i < data.length; i++) {
+				if (fs.existsSync(outDirComplete + sanitize((i + 1) + '.webp'))) return
 				promises.push(await downloadPage(data[i].url, outDirComplete + sanitize((i + 1) + '.webp')))
 			}
 
