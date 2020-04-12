@@ -3,6 +3,7 @@ const axios = require('axios')
 const fs = require('fs')
 const sanitize = require('sanitize-filename')
 const XXH  = require('xxhashjs')
+let tryDownload = 0
 
 async function getData(id, country="France") {
 	country = encodeURIComponent(country)
@@ -145,6 +146,7 @@ async function downloadChapter(chapter, outDir) {
 			
 			for (let i = 0; i < data.length; i++) {
 				if (fs.existsSync(outDirComplete + sanitize((i + 1) + '.webp'))) return
+				tryDownload = 0
 				promises.push(await downloadPage(data[i].url, outDirComplete + sanitize((i + 1) + '.webp')))
 			}
 
@@ -172,8 +174,14 @@ async function downloadPage(pageURL, outputDir) {
     })
   })
   .catch(err => {
-    console.log("Sorry, we encountered an error, exiting:", err)
-		process.exit(1)
+		tryDownload = tryDownload + 1
+		if(tryDownload === 4) {
+			return new Promise((resolve, reject) => {
+				return resolve(outputDir)
+			})
+		} else {
+			return downloadPage(pageURL, outputDir)
+		}
   })
 		
 }
