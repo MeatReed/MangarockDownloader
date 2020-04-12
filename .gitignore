@@ -5,3 +5,4 @@ unused/
 .eslintrc.js
 test.js
 npm-debug.log
+skip.json
