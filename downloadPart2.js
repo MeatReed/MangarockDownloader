@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Manga = require('./smallMangaRock');
 const axios = require('axios')
+const checkInternetConnected = require('check-internet-connected');
 
 if (!fs.existsSync('output')) {
 	fs.mkdirSync('output')
@@ -34,9 +35,15 @@ axios
         })
       }
       await Manga.downloadManga(oidsResponse.data.data[i])
-      console.log(`\tDone oid: ${oidsResponse.data.data[i]}`)
-      skipFile.mangaSkip.push(oidsResponse.data.data[i])
-      fs.writeFileSync('skip.json', JSON.stringify(skipFile))
+      checkInternetConnected()
+        .then((result) => {
+          console.log(`\tDone oid: ${oidsResponse.data.data[i]}`)
+          skipFile.mangaSkip.push(oidsResponse.data.data[i])
+          fs.writeFileSync('skip.json', JSON.stringify(skipFile))
+        })
+        .catch((ex) => {
+          console.log('Plus de connection internet !')
+        });
     }
     console.log('Done !!')
   })
