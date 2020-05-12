@@ -1,4 +1,5 @@
 # Mangarock Downloader
+Not work.. rip mangarock..
 Downloads manga from https://mangarock.com
 
 usage: (requires nodejs)
